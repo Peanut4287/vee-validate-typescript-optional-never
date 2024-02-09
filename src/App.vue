@@ -15,10 +15,23 @@ const schema = toTypedSchema<ObjectSchema<User>>(
   })
 );
 
-const { defineField } = useForm({
+const { errors, defineField, handleSubmit } = useForm({
   validationSchema: schema,
 });
+
+const onSubmit = handleSubmit((values) => {
+  console.log(values);
+})
 
 const [id] = defineField('id');
 const [fullName] = defineField('fullName');
 </script>
+
+<template>
+  <form @submit.prevent="onSubmit">
+    <input type="number" v-model="id">
+    <input type="text" v-model="fullName">
+    <input type="submit">
+  </form>
+  <pre>{{ errors }}</pre>
+</template>
